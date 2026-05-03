@@ -124,21 +124,3 @@ This process repeats every frame, producing smooth animation.
 # Conclusion
 
 Vulkan requires a significant amount of setup before the first pixel is drawn. From creating a window and instance, selecting a device, building pipelines, and managing synchronization, every step gives developers fine-grained control over performance and rendering. Although complex, this workflow provides the foundation for highly efficient, cross-platform graphics applications.  
-
-# Texture
-
-- createTexture image after command pool
-- We start by loading the image using the std_load lib in cpu only memory, we create a staging buffer to receive the image data, we transfer the data to the staging buffer, we also create a Vk image (For the buffer to know how to receive the texture image) and a buffer in gpu only memory, then we copy the staging buffer data to the gpu-only buffer memory.
-
-- We now need a texture image view with an image sampler
-- We need to refind the descriptor to acknowledge the shader of the image texture
-- Modifying vertex struct to add uv coordinate and shader to display the texture
-
-# Depth buffering
-
-- Add the depth stencil state to the graphic pipeline
-- And set the format to the depth attachement for rendering
-- We need to create one vk image to store the depth attachmen and one image view to look at the image the image is directly created gpu onmy memory don't need for staging buffer we have no data to transfer from cpu memory to gpu
-- In recordCommandBuffer transition the depth image in better suitable layout for the gpu to handle
-- Set the rendering attachment info, don't forget to set the storeOp to eDontCare because the depth is only use to discard not visible fragment when processing color attachment their is no interest to kepp the image and in the case we will store the image we should store it in different swapchain to keep the color attachment and depth attachment.
-- If recreate swapchain also recreate depthRespurce to handle the new format size etc...
